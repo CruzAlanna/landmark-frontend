@@ -1,4 +1,4 @@
-export function LandmarksIndex({landmarks}) {
+export function LandmarksIndex({landmarks, onShow}) {
   return (
     <div>
       <h1>Guam Landmarks ({landmarks.length} Landmarks Found)</h1>
@@ -6,9 +6,10 @@ export function LandmarksIndex({landmarks}) {
       <div>
         {landmarks.map((landmark) => (
           <div className="spot" key={landmark.id}>
-            <img src={landmark.image_url} />
             <h2>{landmark.name} | Located in: {landmark.location}</h2>
             <p>{landmark.description}</p>
+            <button onClick={() => onShow(landmark)}>View Landmark</button>
+            <hr></hr>
           </div>
         ))}
       </div>
