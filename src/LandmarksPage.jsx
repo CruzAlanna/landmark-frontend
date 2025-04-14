@@ -5,20 +5,23 @@ import { LandmarksNew } from "./LandmarksNew";
 import { LandmarksShow } from "./LandmarksShow";
 import { Modal } from "./Modal";
 
+// Set Axios base URL once
+axios.defaults.baseURL = "http://localhost:3000";
+
 export function LandmarksPage() {
   const [landmarks, setLandmarks] = useState([]);
   const [isLandmarkShowVisible, setIsLandmarkShowVisible] = useState(false);
   const [currentLandmark, setCurrentLandmark] = useState({});
 
   const handleIndex = () => {
-    axios.get("http://localhost:3000/api/v1/landmarks")
+    axios.get("/api/v1/landmarks") // Because we set the base URL, we can just put the ending of the url for all our requests
     .then((response) => {
       setLandmarks(response.data);
     })
   };
 
   const handleCreate = (params, successCallback) => {
-    axios.post("http://localhost:3000/api/v1/landmarks", params)
+    axios.post("/api/v1/landmarks", params)
     .then((response) => {
       setLandmarks([...landmarks, response.data]);
       successCallback();
@@ -31,7 +34,7 @@ export function LandmarksPage() {
   };
 
   const handleUpdate = (landmark, params, successCallback) => {
-    axios.patch(`http://localhost:3000/api/v1/landmarks/${landmark.id}`, params)
+    axios.patch(`/api/v1/landmarks/${landmark.id}`, params)
     .then((response) => {
       setLandmarks(landmarks.map(landmark => landmark.id === response.data.id ? response.data : landmark));
       successCallback();
@@ -40,7 +43,7 @@ export function LandmarksPage() {
   };
 
   const handleDestroy = (landmark) => {
-    axios.delete(`http://localhost:3000/api/v1/landmarks/${landmark.id}`)
+    axios.delete(`/api/v1/landmarks/${landmark.id}`)
     .then(() => {
       setLandmarks(landmarks.filter((l) => l.id !== landmark.id));
       setIsLandmarkShowVisible(false);
