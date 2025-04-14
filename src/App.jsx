@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Header } from "./Header";
 import { LandmarksPage } from "./LandmarksPage";
 import { Footer } from "./Footer";
